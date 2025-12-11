@@ -1,0 +1,111 @@
+swagger: "2.0"
+info:
+  title: MCP_FASTAPI_GATEWAY
+  description: API Gateway securing mcp-fastapi Cloud Run service with API Key
+  version: 1.0.4
+host: "my-cloudrun-api-v3-8-2a6chsfdduzgq.apigateway.mcp-fastapi-v0-3.cloud.goog" 
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+security: # Global rule: All paths require an API Key unless overridden
+  - api_key: []
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+
+paths:
+  
+  # Path: / 
+  "/": 
+    get:
+      summary: Root endpoint of the API
+      operationId: root
+      x-google-backend:
+        address: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        protocol: "h2"
+        jwt_audience: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS # <--- CORRECTED FIX
+      responses:
+        "200":
+          description: Root API response (JSON object)
+          schema:
+            type: object
+        "401":
+          description: Unauthorized - Invalid or missing API Key
+
+  # Path: /openapi.json 
+  /openapi.json:
+    get:
+      summary: OpenAPI Specification
+      operationId: openapi
+      x-google-backend:
+        address: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        protocol: "h2"
+        jwt_audience: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS # <--- CORRECTED FIX
+      responses:
+        "200":
+          description: OpenAPI Specification JSON
+        "401":
+          description: Unauthorized - Invalid or missing API Key
+
+  # Path: /api/calculator 
+  /api/calculator:
+    post: 
+      summary: Calculator endpoint
+      operationId: calculator
+      x-google-backend:
+        address: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        protocol: "h2"
+        jwt_audience: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS # <--- CORRECTED FIX
+      parameters: 
+        - name: ToolInput
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              num1:
+                type: number
+                format: float
+              num2:
+                type: number
+                format: float
+              operation:
+                type: string
+                default: add
+      responses:
+        "200":
+          description: Calculation result (JSON object)
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              result:
+                type: number
+                format: float
+        "401":
+          description: Unauthorized - Invalid or missing API Key          
+          
+  # Path: /ready (Requires API Key)
+  /ready: 
+    get:
+      summary: Startup/Health check probe
+      operationId: readyProbe
+      x-google-backend:
+        address: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        protocol: "h2"
+        jwt_audience: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS # <--- CORRECTED FIX
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: Application is ready
