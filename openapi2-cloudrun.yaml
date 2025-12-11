@@ -3,7 +3,7 @@ info:
   title: MCP_FASTAPI_GATEWAY
   description: API Gateway securing mcp-fastapi Cloud Run service with API Key
   version: 1.0.4
-host: "my-cloudrun-api-v3-8-2a6chsfdduzgq.apigateway.mcp-fastapi-v0-3.cloud.goog" 
+host: "my-cloudrun-api-v3-8-2-your-url.apigateway.mcp-fastapi-v0-3.cloud.goog" 
 schemes:
   - https
 consumes:
@@ -26,9 +26,9 @@ paths:
       summary: Root endpoint of the API
       operationId: root
       x-google-backend:
-        address: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        address: https://mcp-fastapi-your_url-uk.a.run.app
         protocol: "h2"
-        jwt_audience: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        jwt_audience: https://mcp-fastapi-your_url-uk.a.run.app
         path_translation: APPEND_PATH_TO_ADDRESS # <--- CORRECTED FIX
       responses:
         "200":
@@ -44,9 +44,9 @@ paths:
       summary: OpenAPI Specification
       operationId: openapi
       x-google-backend:
-        address: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        address: https://mcp-fastapi-your_url-uk.a.run.app
         protocol: "h2"
-        jwt_audience: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        jwt_audience: https://mcp-fastapi-your_url-uk.a.run.app
         path_translation: APPEND_PATH_TO_ADDRESS # <--- CORRECTED FIX
       responses:
         "200":
@@ -60,9 +60,9 @@ paths:
       summary: Calculator endpoint
       operationId: calculator
       x-google-backend:
-        address: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        address: https://mcp-fastapi-your_url-uk.a.run.app
         protocol: "h2"
-        jwt_audience: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        jwt_audience: https://mcp-fastapi-your_url-uk.a.run.app
         path_translation: APPEND_PATH_TO_ADDRESS # <--- CORRECTED FIX
       parameters: 
         - name: ToolInput
@@ -100,9 +100,9 @@ paths:
       summary: Startup/Health check probe
       operationId: readyProbe
       x-google-backend:
-        address: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        address: https://mcp-fastapi-your_url-uk.a.run.app
         protocol: "h2"
-        jwt_audience: https://mcp-fastapi-joudfxokba-uk.a.run.app
+        jwt_audience: https://mcp-fastapi-your_url-uk.a.run.app
         path_translation: APPEND_PATH_TO_ADDRESS # <--- CORRECTED FIX
       security:
         - api_key: []

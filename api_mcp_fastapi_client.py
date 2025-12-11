@@ -57,7 +57,7 @@ if use_localhost:
 else:
     # Google Cloud Platform GCP Cloud Run  
     # Update BASE_URL below with the URL reported after running "gcp_8_bucket_runsvc.bat"). 
-    BASE_URL = "https://mcp-fastapi-joudfxokba-uk.a.run.app"
+    BASE_URL = "https://mcp-fastapi-your_url-uk.a.run.app"
 print(f"BASE_URL: {BASE_URL}")
 
 
